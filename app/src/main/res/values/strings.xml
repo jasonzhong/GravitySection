@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GravitySection</string>
+    <string name="external_call_label">&#160;Gravity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="gravity_widget_text">引力工具</string>
+</resources>
