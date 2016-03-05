@@ -2,8 +2,10 @@ package com.shineson.jason.gravitysection.view.floatwinview;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,9 +23,6 @@ public class FloatWinView extends LinearLayout {
 
     private int mEventStartX = 0;
     private int mEventStartY = 0;
-
-    private int mLastEndX = 0;
-    private int mLastEndY = 0;
 
     private int mViewWidth = 0;
     private int mViewHeight = 0;
@@ -55,16 +54,39 @@ public class FloatWinView extends LinearLayout {
         mViewHeight = view.getLayoutParams().height;
     }
 
-    public int getViewWidthEx() {
+    private int getViewWidthEx() {
         return mViewWidth;
     }
 
-    public int getViewHeightEx() {
+    private int getViewHeightEx() {
         return mViewHeight;
     }
 
-    public void setParams(WindowManager.LayoutParams params) {
-        mWindowManagerParams = params;
+    public WindowManager.LayoutParams getParams() {
+        return mWindowManagerParams;
+    }
+
+    public void initParams() {
+        if (mWindowManagerParams != null) {
+            return;
+        }
+
+        mWindowManagerParams = new WindowManager.LayoutParams();
+        mWindowManagerParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+        mWindowManagerParams.format = PixelFormat.RGBA_8888;
+        mWindowManagerParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        mWindowManagerParams.gravity = Gravity.LEFT | Gravity.TOP;
+        mWindowManagerParams.width = getViewWidthEx();
+        mWindowManagerParams.height = getViewHeightEx();
+    }
+
+    public void setParamsPoint(Point point) {
+        if (mWindowManagerParams == null) {
+            return;
+        }
+        mWindowManagerParams.x = point.x;
+        mWindowManagerParams.y = point.y;
     }
 
     @Override
@@ -85,6 +107,8 @@ public class FloatWinView extends LinearLayout {
                 mTouchStartX = (int) event.getX();
                 mTouchStartY = (int) event.getY() + 25;
 
+                System.out.println("x:" + mEventStartX + " y:" + mEventStartY);
+
                 mEventStartX = rawX;
                 mEventStartY = rawY;
                 break;
@@ -96,17 +120,10 @@ public class FloatWinView extends LinearLayout {
                 int moveDistanceY = rawY - mEventStartY;
                 if ((moveDistanceX > 30 || moveDistanceX < -30) ||
                         (moveDistanceY > 30 || moveDistanceY < -30)) {
-                    updateView();
                     mTouchStartX = mTouchStartY = 0;
                 } else {
-                    //mClickListener.onClick(this);
-                    mLastEndX = mTouchStartX;
-                    mLastEndY = mTouchStartY;
-
-                    Point point = new Point();
-                    mWindowManager.getDefaultDisplay().getSize(point);
-
-                    updateView(point.x - 50 - mTouchStartX, (point.y / 4) - 50 - 25 - 10 - mTouchStartY);
+                    mClickListener.onClick(this);
+                    moveToTop();
                 }
                 break;
             default:
@@ -114,6 +131,13 @@ public class FloatWinView extends LinearLayout {
         }
 
         return true;
+    }
+
+    private void moveToTop() {
+        Point point = new Point();
+        mWindowManager.getDefaultDisplay().getSize(point);
+
+        updateView(point.x - 50 - mTouchStartX, (point.y / 4) - 50 - 25 - 100 - mTouchStartY);
     }
 
     public void updateView(int x, int y) {
@@ -126,6 +150,6 @@ public class FloatWinView extends LinearLayout {
         int size = CollectPreferencesManager.getInstance().getCollectionWebSize();
         mCollectNumberView.setText("" + size);
 
-        updateView(mTouchStartX - mLastEndX, mTouchStartY - mLastEndY);
+        updateView(mEventStartX - mTouchStartX, mEventStartY - mTouchStartY);
     }
 }

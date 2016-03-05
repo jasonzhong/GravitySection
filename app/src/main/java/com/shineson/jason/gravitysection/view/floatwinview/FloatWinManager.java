@@ -1,15 +1,19 @@
 package com.shineson.jason.gravitysection.view.floatwinview;
 
 import android.content.Context;
-import android.graphics.PixelFormat;
 import android.graphics.Point;
-import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
+
+import com.shineson.jason.gravitysection.DaemonApplication;
+import com.shineson.jason.gravitysection.view.floatwinview.collectpage.FloatWinCollectPageView;
+import com.shineson.jason.gravitysection.view.floatwinview.webpage.FloatWinWebPageView;
 
 public class FloatWinManager {
 
-    private static FloatWinView floatWinView = null;
-    private static WindowManager.LayoutParams floatwinParams = null;
+    private static FloatWinView mFloatWinView = null;
+    private static FloatWinWebPageView mFloatWinWebPageView = null;
+    private static FloatWinCollectPageView mFloatWinCollectPageView = null;
 
     private static WindowManager mWindowManager = null;
 
@@ -20,40 +24,115 @@ public class FloatWinManager {
         return mWindowManager;
     }
 
-    public static void createFloatWinView(Context context) {
-        WindowManager windowManager = getWindowManager(context);
-        Point point = new Point();
-        windowManager.getDefaultDisplay().getSize(point);
-        if (floatWinView != null) {
+    public static void createFloatWinView(final Context context) {
+        if (mFloatWinView != null) {
             return;
         }
 
-        floatWinView = new FloatWinView(context);
-        if (floatwinParams == null) {
-            floatwinParams = new WindowManager.LayoutParams();
-            floatwinParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-            floatwinParams.format = PixelFormat.RGBA_8888;
-            floatwinParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-            floatwinParams.gravity = Gravity.LEFT | Gravity.TOP;
-            floatwinParams.width = floatWinView.getViewWidthEx();
-            floatwinParams.height = floatWinView.getViewHeightEx();
-            floatwinParams.x = point.x;
-            floatwinParams.y = point.y / 2;
+        WindowManager windowManager = getWindowManager(context);
+        Point point = new Point();
+        windowManager.getDefaultDisplay().getSize(point);
+
+        mFloatWinView = new FloatWinView(context);
+        mFloatWinView.initParams();
+        mFloatWinView.setParamsPoint(point);
+
+        mFloatWinView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isFloatWinWebpageShowing()) {
+                    showFloatWinWebpage(DaemonApplication.mContext);
+                } else {
+                    hideFloatWinWebpage(DaemonApplication.mContext);
+                }
+            }
+        });
+
+        if (mFloatWinView.getParams() != null) {
+            windowManager.addView(mFloatWinView, mFloatWinView.getParams());
         }
-        floatWinView.setParams(floatwinParams);
-        windowManager.addView(floatWinView, floatwinParams);
     }
 
     public static void removeFloatWinView(Context context) {
-        if (floatWinView != null) {
+        if (mFloatWinView != null) {
             WindowManager windowManager = getWindowManager(context);
-            windowManager.removeView(floatWinView);
-            floatWinView = null;
+            windowManager.removeView(mFloatWinView);
+            mFloatWinView = null;
         }
     }
 
+    private static void showFloatWinCollectPageView(Context context) {
+        if (mFloatWinCollectPageView != null) {
+            return;
+        }
+
+        IFloatWinManager iFloatWinManager = null;
+        mFloatWinCollectPageView = new FloatWinCollectPageView(context);
+        mFloatWinCollectPageView.setParams();
+
+        mFloatWinCollectPageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideFloatWinWebpage(DaemonApplication.mContext);
+                if (mFloatWinView != null) {
+                    mFloatWinView.updateView();
+                }
+            }
+        });
+
+        iFloatWinManager = mFloatWinCollectPageView;
+        WindowManager windowManager = getWindowManager(context);
+        if (iFloatWinManager.getParams() != null) {
+            windowManager.addView(iFloatWinManager.getView(), iFloatWinManager.getParams());
+        }
+    }
+
+    private static void hideFloatWinCollectPageView(Context context) {
+        if (mFloatWinCollectPageView != null) {
+            WindowManager windowManager = getWindowManager(context);
+            windowManager.removeView(mFloatWinCollectPageView);
+            mFloatWinCollectPageView = null;
+        }
+    }
+
+    private static void showFloatWinWebpage(Context context) {
+        if (mFloatWinWebPageView != null) {
+            return;
+        }
+
+        mFloatWinWebPageView = new FloatWinWebPageView(context);
+        mFloatWinWebPageView.initParams();
+
+        mFloatWinWebPageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideFloatWinWebpage(DaemonApplication.mContext);
+                if (mFloatWinView != null) {
+                    mFloatWinView.updateView();
+                }
+            }
+        });
+
+        WindowManager windowManager = getWindowManager(context);
+        if (mFloatWinWebPageView.getParams() != null) {
+            windowManager.addView(mFloatWinWebPageView, mFloatWinWebPageView.getParams());
+        }
+    }
+
+    private static void hideFloatWinWebpage(Context context) {
+        if (mFloatWinWebPageView != null) {
+            mFloatWinWebPageView.hideFloatWinWebpage();
+            WindowManager windowManager = getWindowManager(context);
+            windowManager.removeView(mFloatWinWebPageView);
+            mFloatWinWebPageView = null;
+        }
+    }
+
+    private static boolean isFloatWinWebpageShowing() {
+        return mFloatWinWebPageView != null;
+    }
+
     public static boolean isFloatWinShowing() {
-        return floatWinView != null;
+        return mFloatWinView != null;
     }
 }
