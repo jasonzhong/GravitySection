@@ -1,19 +1,13 @@
 package com.shineson.jason.gravitysection.service.floatwinservice;
 
-import android.app.ActivityManager;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Handler;
 import android.os.IBinder;
 
 import com.shineson.jason.gravitysection.DaemonApplication;
 import com.shineson.jason.gravitysection.view.floatwinview.FloatWinManager;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,7 +29,7 @@ public class FloatWinService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (mTimer == null) {
             mTimer = new Timer();
-            mTimer.scheduleAtFixedRate(new MonitorTask(), 0, 5000);
+            mTimer.scheduleAtFixedRate(new MonitorTask(), 0, 1000);
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -75,7 +69,7 @@ public class FloatWinService extends Service {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        FloatWinManager.createFloatWinView(DaemonApplication.mContext);
+                        FloatWinManager.createFloatWinView(DaemonApplication.getContext());
                     }
                 });
             } /*else if (!isHome() && FloatWinManager.isFloatWinShowing()) {

@@ -39,25 +39,42 @@ public abstract class BaseFloatWinPageView extends LinearLayout implements IFloa
         return mParams;
     }
 
-    public void setGravity(int gravity) {
+    public BaseFloatWinPageView setViewGravity(int gravity) {
         if (mParams != null) {
             mParams.gravity = gravity;
         }
+        return this;
     }
 
-    public void setWidth(int width) {
+    public BaseFloatWinPageView setViewWidth(int width) {
         if (mParams != null) {
             mParams.width = width;
         }
+        return this;
     }
 
-    public void setHeight(int height) {
+    public BaseFloatWinPageView setViewHeight(int height) {
         if (mParams != null) {
             mParams.height = height;
         }
+        return this;
     }
 
-    abstract public void setParams();
+    public BaseFloatWinPageView setViewParamsX(int x) {
+        if (mParams != null) {
+            mParams.x = x;
+        }
+        return this;
+    }
+
+    public BaseFloatWinPageView setViewParamsY(int y) {
+        if (mParams != null) {
+            mParams.y = y;
+        }
+        return this;
+    }
+
+    abstract public BaseFloatWinPageView setParams();
 
     private void initFloatWinPageParams(int layoutID) {
         if (isShown) {
@@ -71,16 +88,12 @@ public abstract class BaseFloatWinPageView extends LinearLayout implements IFloa
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         mParams.format = PixelFormat.TRANSLUCENT;
 
-        View view = findViewById(layoutID);
-        mParams.width = view.getLayoutParams().width;
-        mParams.height = view.getLayoutParams().height;
-
         mParams.gravity = Gravity.BOTTOM;
     }
 
     private void initFloatWinPage(Context context, int layoutID) {
         if (mWindowManager == null) {
-            mWindowManager = (WindowManager) DaemonApplication.mContext
+            mWindowManager = (WindowManager) DaemonApplication.getContext()
                     .getSystemService(Context.WINDOW_SERVICE);
         }
         LayoutInflater.from(context).inflate(layoutID, this);
@@ -90,7 +103,7 @@ public abstract class BaseFloatWinPageView extends LinearLayout implements IFloa
 
     public WindowManager getWindowManager() {
         if (mWindowManager == null) {
-            mWindowManager = (WindowManager) DaemonApplication.mContext
+            mWindowManager = (WindowManager) DaemonApplication.getContext()
                     .getSystemService(Context.WINDOW_SERVICE);
         }
         return mWindowManager;

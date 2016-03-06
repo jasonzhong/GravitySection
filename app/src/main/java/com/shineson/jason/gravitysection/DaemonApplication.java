@@ -6,11 +6,15 @@ import android.content.Context;
 public class DaemonApplication extends Application {
 
     private static final String TAG = DaemonApplication.class.getSimpleName();
-    public static Context mContext = null;
+    private static Context mContext = null;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = this;
+    }
+
+    public static Context getContext() {
+        return mContext;
     }
 }

@@ -12,7 +12,7 @@ public class CollectPreferencesManager extends PreferencesManager {
 
     private static CollectPreferencesManager mInstance = null;
     private CollectPreferencesManager() {
-        super(DaemonApplication.mContext, NEWSFEED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        super(DaemonApplication.getContext(), NEWSFEED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
     public static CollectPreferencesManager getInstance() {

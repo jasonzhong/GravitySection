@@ -1,33 +1,26 @@
 package com.shineson.jason.gravitysection.view.floatwinview.webpage;
 
 import android.content.Context;
-import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shineson.jason.gravitysection.DaemonApplication;
 import com.shineson.jason.gravitysection.R;
 import com.shineson.jason.gravitysection.common.sharedpref.CollectPreferencesManager;
+import com.shineson.jason.gravitysection.view.floatwinview.BaseFloatWinPageView;
 
-public class FloatWinWebPageView extends LinearLayout {
+public class FloatWinWebPageView extends BaseFloatWinPageView {
+
     private final String LOG_TAG = FloatWinWebPageView.class.getSimpleName();
-
-    private WindowManager mWindowManager = null;
-    private WindowManager.LayoutParams mParams = null;
-
-    private Boolean isShown = false;
 
     private View mWindowView = null;
     private WebView mWebView = null;
@@ -40,72 +33,18 @@ public class FloatWinWebPageView extends LinearLayout {
     private String mWebUrl = "http://www.baidu.com";
 
     public FloatWinWebPageView(Context context) {
-        super(context);
-        initFloatWinWebpage(context);
+        super(context, R.layout.floatwin_webpage);
+        initFloatWinWebpage();
     }
 
     @Override
-    public void setOnClickListener(OnClickListener listener) {
-        this.mClickListener = listener;
+    public BaseFloatWinPageView setParams() {
+        return this;
     }
 
-    public WindowManager.LayoutParams getParams() {
-        return mParams;
-    }
-
-    public void initFloatWinWebpage(Context context) {
-        mWindowManager = (WindowManager) DaemonApplication.mContext
-                .getSystemService(Context.WINDOW_SERVICE);
-        LayoutInflater.from(context).inflate(R.layout.floatwin_webpage, this);
-
+    public void initFloatWinWebpage() {
         View view = findViewById(R.id.floatwin_webpage_layout);
         setTouchAction(view);
-    }
-
-    public void initParams() {
-        if (isShown) {
-            return;
-        }
-        isShown = true;
-
-        mParams = new WindowManager.LayoutParams();
-        mParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
-        mParams.flags = WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM |
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        mParams.format = PixelFormat.TRANSLUCENT;
-
-        mParams.height = getViewHeightEx();
-        mParams.width = getViewWidthEx();
-
-        mParams.gravity = Gravity.BOTTOM;
-    }
-
-    public void setParamsPoint(Point point) {
-        if (mParams == null) {
-            return;
-        }
-        mParams.x = point.x;
-        mParams.y = point.y;
-    }
-
-    private int getViewWidthEx() {
-        Point point = new Point();
-        mWindowManager.getDefaultDisplay().getSize(point);
-
-        return point.x;
-    }
-
-    private int getViewHeightEx() {
-        Point point = new Point();
-        mWindowManager.getDefaultDisplay().getSize(point);
-
-        return (point.y / 4 * 3 + 100);
-    }
-
-    public void hideFloatWinWebpage() {
-        if (isShown) {
-            isShown = false;
-        }
     }
 
     private void setTouchAction(View view) {
@@ -122,7 +61,7 @@ public class FloatWinWebPageView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 CollectPreferencesManager.getInstance().setCollectionWeb(mWebUrl);
-                Toast.makeText(DaemonApplication.mContext, "�ղ�" + mWebUrl, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DaemonApplication.getContext(), "已收藏" + mWebUrl, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -155,7 +94,7 @@ public class FloatWinWebPageView extends LinearLayout {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         if (!isEffectiveArea(X, Y, rect)) {
-                            hideFloatWinWebpage();
+                            mClickListener.onClick(FloatWinWebPageView.this);
                         }
                         break;
                 }
@@ -168,4 +107,8 @@ public class FloatWinWebPageView extends LinearLayout {
         return rect.contains(x, y);
     }
 
+    @Override
+    public View getView() {
+        return this;
+    }
 }
