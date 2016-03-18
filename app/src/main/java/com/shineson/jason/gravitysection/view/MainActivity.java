@@ -7,7 +7,6 @@ import android.view.MenuItem;
 
 import com.shineson.jason.gravitysection.R;
 
-
 public class MainActivity extends Activity {
 
     @Override

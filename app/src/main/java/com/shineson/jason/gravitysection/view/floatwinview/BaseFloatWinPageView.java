@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 
 import com.shineson.jason.gravitysection.DaemonApplication;
 
+import butterknife.ButterKnife;
+
 public abstract class BaseFloatWinPageView extends LinearLayout implements IFloatWinManager {
 
     private final String LOG_TAG = BaseFloatWinPageView.class.getSimpleName();

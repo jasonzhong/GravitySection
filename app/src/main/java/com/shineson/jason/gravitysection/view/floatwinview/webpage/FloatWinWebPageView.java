@@ -18,6 +18,9 @@ import com.shineson.jason.gravitysection.R;
 import com.shineson.jason.gravitysection.common.sharedpref.CollectPreferencesManager;
 import com.shineson.jason.gravitysection.view.floatwinview.BaseFloatWinPageView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class FloatWinWebPageView extends BaseFloatWinPageView {
 
     private final String LOG_TAG = FloatWinWebPageView.class.getSimpleName();
@@ -25,16 +28,21 @@ public class FloatWinWebPageView extends BaseFloatWinPageView {
     private View mWindowView = null;
     private WebView mWebView = null;
     private TextView mTextView = null;
-    private ImageButton mCloseBtn = null;
-    private ImageButton mCollectBtn = null;
+    //private ImageButton mCloseBtn = null;
+    //private ImageButton mCollectBtn = null;
 
-    private OnClickListener mClickListener = null;
+    @Bind(R.id.floatwin_webpage_btn_close) ImageButton mCloseBtn;
+    @Bind(R.id.floatwin_webpage_btn_collect) ImageButton mCollectBtn;
 
     private String mWebUrl = "http://www.baidu.com";
 
     public FloatWinWebPageView(Context context) {
         super(context, R.layout.floatwin_webpage);
         initFloatWinWebpage();
+    }
+
+    public void removeFloatWinWebPageView() {
+        ButterKnife.unbind(this);
     }
 
     @Override
@@ -44,11 +52,12 @@ public class FloatWinWebPageView extends BaseFloatWinPageView {
 
     public void initFloatWinWebpage() {
         View view = findViewById(R.id.floatwin_webpage_layout);
+
         setTouchAction(view);
     }
 
     private void setTouchAction(View view) {
-        mCloseBtn = (ImageButton) view.findViewById(R.id.floatwin_webpage_btn_close);
+        //mCloseBtn = (ImageButton) view.findViewById(R.id.floatwin_webpage_btn_close);
         mCloseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +65,7 @@ public class FloatWinWebPageView extends BaseFloatWinPageView {
             }
         });
 
-        mCollectBtn = (ImageButton) view.findViewById(R.id.floatwin_webpage_btn_collect);
+        //mCollectBtn = (ImageButton) view.findViewById(R.id.floatwin_webpage_btn_collect);
         mCollectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

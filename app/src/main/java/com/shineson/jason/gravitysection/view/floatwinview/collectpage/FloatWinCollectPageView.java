@@ -12,20 +12,21 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class FloatWinCollectPageView extends BaseFloatWinPageView {
 
     private final String LOG_TAG = FloatWinCollectPageView.class.getSimpleName();
 
-    private ListView mLvCard = null;
-    private ImageButton mCloseBtn = null;
+    @Bind(R.id.lv_card) ListView mLvCard;
+    @Bind(R.id.btn_close) ImageButton mCloseBtn;
 
     private CollectPageViewList mCollectPageViewView = null;
 
     public FloatWinCollectPageView(Context context) {
         super(context, R.layout.floatwin_collectpage);
         initFloatWinCollectPage();
-
-        mLvCard = (ListView) findViewById(R.id.lv_card);
 
         mCollectPageViewView = new CollectPageViewList(mLvCard, context);
 
@@ -67,7 +68,8 @@ public class FloatWinCollectPageView extends BaseFloatWinPageView {
     private void initFloatWinCollectPage() {
         View view = findViewById(R.id.floatwin_collectpage_layout);
 
-        mCloseBtn = (ImageButton) view.findViewById(R.id.btn_close);
+        ButterKnife.bind(this, view);
+
         mCloseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

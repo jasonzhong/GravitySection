@@ -12,7 +12,6 @@ public class GravityWidgetView  extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-        System.out.println("onUpdate");
 
         final int length = appWidgetIds.length;
         for (int i = 0; i < length; i++) {

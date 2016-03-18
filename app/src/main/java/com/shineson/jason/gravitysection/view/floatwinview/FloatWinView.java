@@ -16,6 +16,9 @@ import android.widget.TextView;
 import com.shineson.jason.gravitysection.R;
 import com.shineson.jason.gravitysection.common.sharedpref.CollectPreferencesManager;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class FloatWinView extends LinearLayout {
 
     private int mTouchStartX = 0;
@@ -30,7 +33,7 @@ public class FloatWinView extends LinearLayout {
     private WindowManager mWindowManager = null;
     private WindowManager.LayoutParams mWindowManagerParams = null;
 
-    private TextView mCollectNumberView = null;
+    @Bind(R.id.floatwin_collect_number) TextView mCollectNumberView;
 
     private OnClickListener mClickListener = null;
 
@@ -43,7 +46,7 @@ public class FloatWinView extends LinearLayout {
         mWindowManager = (WindowManager) context.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         LayoutInflater.from(context).inflate(R.layout.activity_floatwin, this);
 
-        mCollectNumberView = (TextView) findViewById(R.id.floatwin_collect_number);
+        ButterKnife.bind(this);
 
         int size = CollectPreferencesManager.getInstance().getCollectionWebSize();
         mCollectNumberView.setText("" + size);
