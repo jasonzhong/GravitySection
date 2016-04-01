@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -33,7 +34,7 @@ public class FloatWinView extends LinearLayout {
     private WindowManager mWindowManager = null;
     private WindowManager.LayoutParams mWindowManagerParams = null;
 
-    @Bind(R.id.floatwin_collect_number) TextView mCollectNumberView;
+    @Nullable @Bind(R.id.floatwin_collect_number) TextView mCollectNumberView;
 
     private OnClickListener mClickListener = null;
 

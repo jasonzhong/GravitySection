@@ -5,4 +5,9 @@
     <color name="Gray">#6c6c6c</color>
     <color name="Orange">#e63900</color>
     <color name="LightGray">#f3f3f3</color>
+
+    <color name="floatwin_bg_start">#ff15a9ff</color>
+    <color name="floatwin_bg_center">#0015f0ff</color>
+    <color name="floatwin_bg_end">#0015a9ff</color>
+    <color name="floatwin_bg_bg">#cecece</color>
 </resources>

@@ -1,6 +1,7 @@
 package com.shineson.jason.gravitysection.view.floatwinview.collectpage;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -19,8 +20,8 @@ public class FloatWinCollectPageView extends BaseFloatWinPageView {
 
     private final String LOG_TAG = FloatWinCollectPageView.class.getSimpleName();
 
-    @Bind(R.id.lv_card) ListView mLvCard;
-    @Bind(R.id.btn_close) ImageButton mCloseBtn;
+    @Nullable @Bind(R.id.lv_card) ListView mLvCard;
+    @Nullable @Bind(R.id.btn_close) ImageButton mCloseBtn;
 
     private CollectPageViewList mCollectPageViewView = null;
 

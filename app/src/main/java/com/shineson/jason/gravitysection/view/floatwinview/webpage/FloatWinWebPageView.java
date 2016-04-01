@@ -52,7 +52,7 @@ public class FloatWinWebPageView extends BaseFloatWinPageView {
 
     public void initFloatWinWebpage() {
         View view = findViewById(R.id.floatwin_webpage_layout);
-
+        ButterKnife.bind(this, view);
         setTouchAction(view);
     }
 
