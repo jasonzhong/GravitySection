@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GravitySection.iml" filepath="$PROJECT_DIR$/GravitySection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PrivateCollection.iml" filepath="$PROJECT_DIR$/PrivateCollection.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

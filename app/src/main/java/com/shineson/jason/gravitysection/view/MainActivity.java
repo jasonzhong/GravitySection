@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.shineson.jason.gravitysection.R;
-import com.shineson.jason.gravitysection.service.floatwinservice.FloatWinService;
+import com.shineson.jason.gravitysection.view.maincollectionview.MainCollectionActivity;
 
 public class MainActivity extends Activity {
 
@@ -16,8 +16,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intentService = new Intent(this, FloatWinService.class);
-        startService(intentService);
+        Intent intentActivity = new Intent(this, MainCollectionActivity.class);
+        startActivity(intentActivity);
     }
 
     @Override
