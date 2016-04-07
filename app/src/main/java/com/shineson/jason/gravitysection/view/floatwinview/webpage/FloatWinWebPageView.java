@@ -48,9 +48,21 @@ public class FloatWinWebPageView extends BaseFloatWinPageView {
         return this;
     }
 
-    public void setWebUrl(String url) {
+    public void loadWebUrl() {
+        reloadWebPage();
+    }
+
+    public void loadWebUrl(String url) {
         mWebUrl = url;
+        reloadWebPage();
+    }
+
+    private void reloadWebPage() {
+        if (null == mWebView) {
+            return;
+        }
         mWebView.loadUrl(mWebUrl);
+        mTextView.setText(mWebUrl);
     }
 
     public void initFloatWinWebpage() {
@@ -75,21 +87,10 @@ public class FloatWinWebPageView extends BaseFloatWinPageView {
             }
         });
 
-        mWebView = (WebView) view.findViewById(R.id.floatwin_webpage_webView);
-        mWebView.loadUrl(mWebUrl);
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
-        WebSettings settings = mWebView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        mWebView.requestFocus(View.FOCUS_DOWN);
-
         mTextView = (TextView) view.findViewById(R.id.floatwin_webpage_text_url);
         mTextView.setText(mWebUrl);
+
+        initWebView(view);
 
         mWindowView = view.findViewById(R.id.floatwin_webpage_layout);
         view.setOnTouchListener(new View.OnTouchListener() {
@@ -111,6 +112,20 @@ public class FloatWinWebPageView extends BaseFloatWinPageView {
                 return true;
             }
         });
+    }
+
+    private void initWebView(View view) {
+        mWebView = (WebView) view.findViewById(R.id.floatwin_webpage_webView);
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+        WebSettings settings = mWebView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        mWebView.requestFocus(View.FOCUS_DOWN);
     }
 
     private boolean isEffectiveArea(int x, int y, Rect rect) {

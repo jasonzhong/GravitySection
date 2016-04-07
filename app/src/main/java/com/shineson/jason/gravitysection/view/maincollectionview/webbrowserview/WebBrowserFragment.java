@@ -47,9 +47,10 @@ public class WebBrowserFragment extends BaseFragment {
         ArrayList<HashMap<String, Object>> itemsLists = getFileListOnDownloadDir("/storage/");
         mWebBrowserViewList.setItemList(itemsLists);
 
-        if (!FloatWinManager.isFloatWinShowing()) {
-            FloatWinManager.createFloatWinView(DaemonApplication.getContext());
-            FloatWinManager.showFloatWinWebPageView(DaemonApplication.getContext(), "https://about.me/zhonghuajian");
+        if (!FloatWinManager.getInstance().isFloatWinShowing()) {
+            FloatWinManager.getInstance()
+                    .createFloatWinView(DaemonApplication.getContext())
+                    .showFloatWinWebPageView("https://about.me/zhonghuajian");
         }
     }
 

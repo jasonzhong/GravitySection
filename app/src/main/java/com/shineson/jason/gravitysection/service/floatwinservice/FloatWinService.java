@@ -2,6 +2,7 @@ package com.shineson.jason.gravitysection.service.floatwinservice;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 
@@ -16,6 +17,7 @@ public class FloatWinService extends Service {
     private Handler handler = new Handler();
 
     private Timer mTimer = null;
+    private String mUrl = null;
 
     public FloatWinService() {
     }
@@ -27,10 +29,25 @@ public class FloatWinService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            mUrl = (String)bundle.get("url");
+        }
+
         if (mTimer == null) {
             mTimer = new Timer();
             mTimer.scheduleAtFixedRate(new MonitorTask(), 0, 1000);
         }
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                FloatWinManager.getInstance()
+                    .createFloatWinView(DaemonApplication.getContext())
+                    .showFloatWinWebPageView(mUrl);
+
+            }
+        });
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -65,11 +82,12 @@ public class FloatWinService extends Service {
 
         @Override
         public void run() {
-            if (/*isHome() &&*/ !FloatWinManager.isFloatWinShowing()) {
+            if (!FloatWinManager.getInstance().isFloatWinShowing()) {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        FloatWinManager.createFloatWinView(DaemonApplication.getContext());
+                        FloatWinManager.getInstance()
+                                .createFloatWinView(DaemonApplication.getContext());
                     }
                 });
             } /*else if (!isHome() && FloatWinManager.isFloatWinShowing()) {

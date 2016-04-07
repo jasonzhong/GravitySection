@@ -31,12 +31,17 @@ public class ExternalCallActivity extends Activity {
         String url = (String) item.getText();
 
         Intent intentService = new Intent(ExternalCallActivity.this, FloatWinService.class);
+        intentService.putExtra("url", url);
         startService(intentService);
     }
 
     private void intentActionView(Intent intent) {
         Uri uri = intent.getData();
-        if(uri != null) {
+        if(uri == null) {
+            return;
         }
+        Intent intentService = new Intent(ExternalCallActivity.this, FloatWinService.class);
+        intentService.putExtra("url", uri.toString());
+        startService(intentService);
     }
 }

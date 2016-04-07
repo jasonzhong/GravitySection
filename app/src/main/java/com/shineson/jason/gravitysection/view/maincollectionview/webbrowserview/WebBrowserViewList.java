@@ -54,6 +54,7 @@ public class WebBrowserViewList extends BaseCardsView {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            long nId = id;
         }
     }
 }
