@@ -55,7 +55,7 @@ public class FloatWinManager {
                     }
                 } else {
                     if (!isFloatWinWebpageShowing()) {
-                        showFloatWinWebPage(DaemonApplication.getContext());
+                        showFloatWinWebPageView(DaemonApplication.getContext());
                     } else {
                         hideFloatWinWebPageView();
                     }
@@ -123,7 +123,7 @@ public class FloatWinManager {
         mFloatWinCollectPageView = null;
     }
 
-    private static void showFloatWinWebPage(Context context) {
+    private static void showFloatWinWebPageView(Context context) {
         if (mFloatWinWebPageView != null) {
             return;
         }
@@ -136,6 +136,36 @@ public class FloatWinManager {
             .setViewHeight(point.y / 4 * 3 + 100)
             .setViewWidth(point.x)
             .setViewGravity(Gravity.BOTTOM);
+
+        mFloatWinWebPageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideFloatWinWebPageView();
+
+                if (mFloatWinView != null) {
+                    mFloatWinView.updateView();
+                }
+            }
+        });
+
+        addFloatWinView(mFloatWinWebPageView, context);
+    }
+
+    public static void showFloatWinWebPageView(Context context, String url) {
+        if (mFloatWinWebPageView != null) {
+            return;
+        }
+
+        Point point = new Point();
+        getWindowDefaultDisplay(context).getSize(point);
+
+        mFloatWinWebPageView = new FloatWinWebPageView(context);
+        mFloatWinWebPageView.setParams()
+                .setViewHeight(point.y / 4 * 3 + 100)
+                .setViewWidth(point.x)
+                .setViewGravity(Gravity.BOTTOM);
+
+        mFloatWinWebPageView.setWebUrl(url);
 
         mFloatWinWebPageView.setOnClickListener(new View.OnClickListener() {
             @Override

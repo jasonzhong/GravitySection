@@ -28,8 +28,6 @@ public class FloatWinWebPageView extends BaseFloatWinPageView {
     private View mWindowView = null;
     private WebView mWebView = null;
     private TextView mTextView = null;
-    //private ImageButton mCloseBtn = null;
-    //private ImageButton mCollectBtn = null;
 
     @Bind(R.id.floatwin_webpage_btn_close) ImageButton mCloseBtn;
     @Bind(R.id.floatwin_webpage_btn_collect) ImageButton mCollectBtn;
@@ -50,6 +48,11 @@ public class FloatWinWebPageView extends BaseFloatWinPageView {
         return this;
     }
 
+    public void setWebUrl(String url) {
+        mWebUrl = url;
+        mWebView.loadUrl(mWebUrl);
+    }
+
     public void initFloatWinWebpage() {
         View view = findViewById(R.id.floatwin_webpage_layout);
         ButterKnife.bind(this, view);
@@ -57,7 +60,6 @@ public class FloatWinWebPageView extends BaseFloatWinPageView {
     }
 
     private void setTouchAction(View view) {
-        //mCloseBtn = (ImageButton) view.findViewById(R.id.floatwin_webpage_btn_close);
         mCloseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +67,6 @@ public class FloatWinWebPageView extends BaseFloatWinPageView {
             }
         });
 
-        //mCollectBtn = (ImageButton) view.findViewById(R.id.floatwin_webpage_btn_collect);
         mCollectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

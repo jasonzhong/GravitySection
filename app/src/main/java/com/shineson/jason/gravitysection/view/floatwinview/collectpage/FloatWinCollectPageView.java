@@ -71,6 +71,10 @@ public class FloatWinCollectPageView extends BaseFloatWinPageView {
 
         ButterKnife.bind(this, view);
 
+        if (null == mCloseBtn) {
+            return;
+        }
+
         mCloseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

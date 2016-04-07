@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.shineson.jason.gravitysection.R;
-import com.shineson.jason.gravitysection.view.maincollectionview.MainCollectionActivity;
+import com.shineson.jason.gravitysection.view.maincollectionview.MainCollectionFragmentActivity;
 
 public class MainActivity extends Activity {
 
@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intentActivity = new Intent(this, MainCollectionActivity.class);
+        Intent intentActivity = new Intent(this, MainCollectionFragmentActivity.class);
         startActivity(intentActivity);
     }
 

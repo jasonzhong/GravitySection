@@ -78,7 +78,7 @@
         </service>
 
         <activity
-            android:name=".view.maincollectionview.MainCollectionActivity"
+            android:name=".view.maincollectionview.MainCollectionFragmentActivity"
             android:label="@string/title_activity_main_collection" >
         </activity>
     </application>

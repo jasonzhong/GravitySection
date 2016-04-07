@@ -4,4 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="widget_margin">8dp</dimen>
+
+    <dimen name="webbrowser_child_item_height">68dp</dimen>
+    <dimen name="webbrowser_item_list_offset">12dp</dimen>
 </resources>
