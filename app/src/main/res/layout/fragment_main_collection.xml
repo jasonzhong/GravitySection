@@ -2,22 +2,78 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/collection_white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/collection_windows_title_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:textColor="@color/collection_title_txt_bg"
+            android:textSize="18dp"
+            android:clickable="true"
+            android:background="@drawable/collect_return_btn_bg"
+            android:drawableLeft="@mipmap/collect_icon_back_nor" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/title_webbrowser"
+            android:textColor="@color/collection_title_txt_bg"
+            android:textSize="20dp" />
+
+        <ImageButton
+            android:id="@+id/btn_menumore"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:paddingLeft="11dp"
+            android:paddingRight="18dp"
+            android:src="@mipmap/collect_menu_more" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/collection_diliver_color"
+        android:layout_alignParentRight="true"/>
 
     <LinearLayout
         android:id="@+id/collection_bottom_tab"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:baselineAligned="true">
+        android:baselineAligned="true"
+        android:padding="1px"
+        android:background="@drawable/collect_tab_bg_selector">
 
         <RelativeLayout
             android:id="@+id/collection_webbrowser"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:background="@color/collection_black">
+            android:padding="1px">
+            <TextView
+                android:id="@+id/tv_webbrowser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/title_webbrowser"
+                android:gravity="center"
+                android:background="@drawable/collect_tab_btn_bg_selector"
+                android:textColor="@drawable/collect_tab_color_selector"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -25,7 +81,15 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:background="@color/collection_orange">
+            android:padding="1px">
+            <TextView
+                android:id="@+id/tv_other"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/title_other"
+                android:gravity="center"
+                android:background="@drawable/collect_tab_btn_bg_selector"
+                android:textColor="@drawable/collect_tab_color_selector"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -33,9 +97,23 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
-            android:background="@color/collection_white">
+            android:padding="1px">
+            <TextView
+                android:id="@+id/tv_aboutme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/title_aboutme"
+                android:gravity="center"
+                android:background="@drawable/collect_tab_btn_bg_selector"
+                android:textColor="@drawable/collect_tab_color_selector"/>
         </RelativeLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/collection_diliver_color"
+        android:layout_alignParentRight="true"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/main_Pager"

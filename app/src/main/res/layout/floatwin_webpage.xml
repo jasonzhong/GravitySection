@@ -20,11 +20,13 @@
             
             <TextView
                 android:id="@+id/floatwin_webpage_text_url"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="23.76dp"
                 android:textColor="@color/White"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true">
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf ="@+id/floatwin_webpage_btn_collect"
+                android:singleLine="true"
+                android:ellipsize="end">
                 浏览网页
             </TextView>
 

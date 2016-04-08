@@ -7,4 +7,6 @@
 
     <dimen name="webbrowser_child_item_height">68dp</dimen>
     <dimen name="webbrowser_item_list_offset">12dp</dimen>
+
+    <dimen name="webbrowser_checkbox_size">20dp</dimen>
 </resources>

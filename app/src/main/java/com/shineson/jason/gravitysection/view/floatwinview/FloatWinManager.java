@@ -14,7 +14,7 @@ import com.shineson.jason.gravitysection.view.floatwinview.webpage.FloatWinWebPa
 
 public class FloatWinManager {
 
-    private static FloatWinView mFloatWinView = null;
+    private static FloatWinMainView mFloatWinMainView = null;
     private static FloatWinWebPageView mFloatWinWebPageView = null;
     private static FloatWinCollectPageView mFloatWinCollectPageView = null;
 
@@ -47,7 +47,7 @@ public class FloatWinManager {
     }
 
     public FloatWinManager createFloatWinView(final Context context) {
-        if (mFloatWinView != null) {
+        if (mFloatWinMainView != null) {
             return this;
         }
 
@@ -57,11 +57,11 @@ public class FloatWinManager {
         Point point = new Point();
         windowManager.getDefaultDisplay().getSize(point);
 
-        mFloatWinView = new FloatWinView(mContext);
-        mFloatWinView.initParams();
-        mFloatWinView.setParamsPoint(point);
+        mFloatWinMainView = new FloatWinMainView(mContext);
+        mFloatWinMainView.initParams();
+        mFloatWinMainView.setParamsPoint(point);
 
-        mFloatWinView.setOnClickListener(new View.OnClickListener() {
+        mFloatWinMainView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (CollectPreferencesManager.getInstance().getCollectionWebSize() > 1) {
@@ -80,18 +80,18 @@ public class FloatWinManager {
             }
         });
 
-        if (mFloatWinView.getParams() != null) {
-            windowManager.addView(mFloatWinView, mFloatWinView.getParams());
+        if (mFloatWinMainView.getParams() != null) {
+            windowManager.addView(mFloatWinMainView, mFloatWinMainView.getParams());
         }
 
         return this;
     }
 
     public void removeFloatWinView(Context context) {
-        if (mFloatWinView != null) {
+        if (mFloatWinMainView != null) {
             WindowManager windowManager = getWindowManager(context);
-            windowManager.removeView(mFloatWinView);
-            mFloatWinView = null;
+            windowManager.removeView(mFloatWinMainView);
+            mFloatWinMainView = null;
         }
     }
 
@@ -124,8 +124,8 @@ public class FloatWinManager {
             public void onClick(View v) {
                 hideFloatWinCollectPageView();
 
-                if (mFloatWinView != null) {
-                    mFloatWinView.updateView();
+                if (mFloatWinMainView != null) {
+                    mFloatWinMainView.updateView();
                 }
             }
         };
@@ -168,8 +168,8 @@ public class FloatWinManager {
             public void onClick(View v) {
                 hideFloatWinWebPageView();
 
-                if (mFloatWinView != null) {
-                    mFloatWinView.updateView();
+                if (mFloatWinMainView != null) {
+                    mFloatWinMainView.updateView();
                 }
             }
         };
@@ -194,6 +194,6 @@ public class FloatWinManager {
     }
 
     public boolean isFloatWinShowing() {
-        return mFloatWinView != null;
+        return mFloatWinMainView != null;
     }
 }

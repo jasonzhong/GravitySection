@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ import com.shineson.jason.gravitysection.common.sharedpref.CollectPreferencesMan
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class FloatWinView extends LinearLayout {
+public class FloatWinMainView extends LinearLayout implements View.OnClickListener {
 
     private int mTouchStartX = 0;
     private int mTouchStartY = 0;
@@ -34,11 +35,13 @@ public class FloatWinView extends LinearLayout {
     private WindowManager mWindowManager = null;
     private WindowManager.LayoutParams mWindowManagerParams = null;
 
+    @Nullable @Bind(R.id.btn_back) Button mBackButton;
+    @Nullable @Bind(R.id.btn_menumore) View mMenuButton;
     @Nullable @Bind(R.id.floatwin_collect_number) TextView mCollectNumberView;
 
     private OnClickListener mClickListener = null;
 
-    public FloatWinView(Context context) {
+    public FloatWinMainView(Context context) {
         super(context);
         initFloatWin(context);
     }
@@ -56,6 +59,14 @@ public class FloatWinView extends LinearLayout {
         View view = findViewById(R.id.floatwin_layout);
         mViewWidth = view.getLayoutParams().width;
         mViewHeight = view.getLayoutParams().height;
+
+        if (mBackButton != null) {
+            mBackButton.setOnClickListener(this);
+        }
+
+        if (mMenuButton != null) {
+            mMenuButton.setOnClickListener(this);
+        }
     }
 
     private int getViewWidthEx() {
@@ -111,8 +122,6 @@ public class FloatWinView extends LinearLayout {
                 mTouchStartX = (int) event.getX();
                 mTouchStartY = (int) event.getY() + 25;
 
-                System.out.println("x:" + mEventStartX + " y:" + mEventStartY);
-
                 mEventStartX = rawX;
                 mEventStartY = rawY;
                 break;
@@ -141,7 +150,10 @@ public class FloatWinView extends LinearLayout {
         Point point = new Point();
         mWindowManager.getDefaultDisplay().getSize(point);
 
-        updateView(point.x - 50 - mTouchStartX, (point.y / 4) - 50 - 25 - 100 - mTouchStartY);
+        int x = point.x - getViewWidthEx() - 50;
+        int y = getViewHeightEx() - 50;
+        System.out.println("x:" + x + " y:" + y);
+        updateView(x, y);
     }
 
     public void updateView(int x, int y) {
@@ -155,5 +167,18 @@ public class FloatWinView extends LinearLayout {
         mCollectNumberView.setText("" + size);
 
         updateView(mEventStartX - mTouchStartX, mEventStartY - mTouchStartY);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.btn_back:
+                break;
+            case R.id.btn_menumore:
+                break;
+            default:
+                break;
+        }
     }
 }

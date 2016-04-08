@@ -53,6 +53,12 @@ public abstract class BaseCardsAdapter extends BaseAdapter{
         notifyDataSetChanged();
     }
 
+    public void modifyItem(int position, HashMap<String, Object> item) {
+        mItemList.remove(position);
+        mItemList.add(position, item);
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         BaseViewHolder baseViewHolder = BaseViewHolder.get(mContext, convertView, parent, mLayoutId);

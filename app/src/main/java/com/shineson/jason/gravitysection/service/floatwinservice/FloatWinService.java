@@ -42,9 +42,15 @@ public class FloatWinService extends Service {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                String url = mUrl;
+                int start = url.indexOf("http");
+                if (start != 0) {
+                    url = url.substring(start, url.length());
+                }
+
                 FloatWinManager.getInstance()
                     .createFloatWinView(DaemonApplication.getContext())
-                    .showFloatWinWebPageView(mUrl);
+                    .showFloatWinWebPageView(url);
 
             }
         });

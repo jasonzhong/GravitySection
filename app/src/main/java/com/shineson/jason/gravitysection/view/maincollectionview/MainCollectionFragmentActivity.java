@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.TextView;
 
 import com.shineson.jason.gravitysection.R;
 import com.shineson.jason.gravitysection.common.utils.FragmentCreator;
@@ -20,11 +21,16 @@ import butterknife.ButterKnife;
 public class MainCollectionFragmentActivity extends BasicFragmentActivity implements View.OnClickListener {
     private enum FRAGMENT_TYPE {
         enum_webbrowser,
+        enum_other,
         enum_aboutme
     }
 
     private List<FragmentCreator> mMenuList = null;
 
+    @Nullable @Bind(R.id.btn_back) TextView mBtnBack;
+    @Nullable @Bind(R.id.tv_webbrowser) TextView mBtnWebbrowser;
+    @Nullable @Bind(R.id.tv_other) TextView mBtnOther;
+    @Nullable @Bind(R.id.tv_aboutme) TextView mBtnAboutme;
     @Nullable @Bind(R.id.main_Pager) ViewPager mMainPager;
 
     @Override
@@ -35,6 +41,7 @@ public class MainCollectionFragmentActivity extends BasicFragmentActivity implem
         ButterKnife.bind(this);
 
         findViewById(R.id.collection_webbrowser).setOnClickListener(this);
+        findViewById(R.id.collection_other).setOnClickListener(this);
         findViewById(R.id.collection_aboutme).setOnClickListener(this);
 
         initView();
@@ -44,9 +51,16 @@ public class MainCollectionFragmentActivity extends BasicFragmentActivity implem
         mMenuList = new LinkedList<FragmentCreator>();
         mMenuList.add(new FragmentCreator(WebBrowserFragment.class, R.string.title_webbrowser));
         mMenuList.add(new FragmentCreator(AboutMeFragment.class, R.string.title_aboutme));
+        mMenuList.add(new FragmentCreator(AboutMeFragment.class, R.string.title_aboutme));
 
         setMainPageAdapter();
         addMainPageChangeListener();
+
+        if (mBtnBack != null) {
+            mBtnBack.setOnClickListener(this);
+        }
+
+        setFragmentTab(FRAGMENT_TYPE.enum_webbrowser.ordinal());
     }
 
     private void addMainPageChangeListener() {
@@ -98,6 +112,22 @@ public class MainCollectionFragmentActivity extends BasicFragmentActivity implem
             return;
         }
         mMainPager.setCurrentItem(position, true);
+
+
+        if (mBtnAboutme == null || mBtnWebbrowser == null || mBtnOther == null) {
+            return;
+        }
+        mBtnWebbrowser.setSelected(false);
+        mBtnAboutme.setSelected(false);
+        mBtnOther.setSelected(false);
+
+        if (position == 0) {
+            mBtnWebbrowser.setSelected(true);
+        } else if (position == 1) {
+            mBtnOther.setSelected(true);
+        } else if (position == 2) {
+            mBtnAboutme.setSelected(true);
+        }
     }
 
     private void setFragmentTab(Fragment fragment) {
@@ -113,14 +143,23 @@ public class MainCollectionFragmentActivity extends BasicFragmentActivity implem
         switch (v.getId()) {
             case R.id.collection_webbrowser:
                 type = FRAGMENT_TYPE.enum_webbrowser;
+                setFragmentTab(type.ordinal());
+                break;
+            case R.id.collection_other:
+                type = FRAGMENT_TYPE.enum_other;
+                setFragmentTab(type.ordinal());
                 break;
             case R.id.collection_aboutme:
                 type = FRAGMENT_TYPE.enum_aboutme;
+                setFragmentTab(type.ordinal());
+                break;
+            case R.id.btn_back:
+                finish();
                 break;
             default:
                 type = FRAGMENT_TYPE.enum_webbrowser;
+                setFragmentTab(type.ordinal());
                 break;
         }
-        setFragmentTab(type.ordinal());
     }
 }

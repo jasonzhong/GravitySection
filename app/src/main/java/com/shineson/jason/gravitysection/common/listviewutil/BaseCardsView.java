@@ -3,7 +3,6 @@ package com.shineson.jason.gravitysection.common.listviewutil;
 import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -30,6 +29,24 @@ public abstract class BaseCardsView {
         return mItemsLists.get(position);
     }
 
+    public void modifyItemByPos(int position, HashMap<String, Object> hashMap) {
+        if (mItemsLists.size() < position) {
+            return;
+        }
+
+        mItemsLists.remove(position);
+        mItemsLists.add(position, hashMap);
+
+        modifyListAdapter(position);
+    }
+
+    private void modifyListAdapter(int position) {
+        if (mBaseCardsAdapter == null) {
+            return;
+        }
+        mBaseCardsAdapter.modifyItem(position, mItemsLists.get(position));
+    }
+
     public void showBaseCards() {
         mBaseCardsAdapter = getCardsAdapter();
         mListView.setAdapter(mBaseCardsAdapter);
@@ -41,10 +58,7 @@ public abstract class BaseCardsView {
      * @param itemsLists 修改显示列表
      */
     public void setItemList(ArrayList<HashMap<String, Object>> itemsLists) {
-        if (mListView != null) {
-            mBaseCardsAdapter.setList(itemsLists);
-        }
-
+        mBaseCardsAdapter.setList(itemsLists);
         mItemsLists = itemsLists;
     }
 

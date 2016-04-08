@@ -33,7 +33,7 @@ public class CollectPreferencesManager extends PreferencesManager {
 
     public void setCollectionWeb(String url) {
         int size = getCollectionWebSize();
-        String indexWeb = String.format("%s%d", KEY_COLLECTION_WEB, size + 1);
+        String indexWeb = String.format("%s%d", KEY_COLLECTION_WEB, size);
         putString(indexWeb, url);
 
         setCollectionWebSize(size + 1);
@@ -42,6 +42,7 @@ public class CollectPreferencesManager extends PreferencesManager {
 
     public String getCollectionWeb(int index, String def) {
         String indexWeb = String.format("%s%d", KEY_COLLECTION_WEB, index);
-        return getString(indexWeb, def);
+        String data = getString(indexWeb, def);
+        return data;
     }
 }

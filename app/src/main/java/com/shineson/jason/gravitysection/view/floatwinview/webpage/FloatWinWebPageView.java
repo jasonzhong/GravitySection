@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.shineson.jason.gravitysection.DaemonApplication;
 import com.shineson.jason.gravitysection.R;
 import com.shineson.jason.gravitysection.common.sharedpref.CollectPreferencesManager;
+import com.shineson.jason.gravitysection.datatool.DataManager;
 import com.shineson.jason.gravitysection.view.floatwinview.BaseFloatWinPageView;
 
 import butterknife.Bind;
@@ -82,7 +83,7 @@ public class FloatWinWebPageView extends BaseFloatWinPageView {
         mCollectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CollectPreferencesManager.getInstance().setCollectionWeb(mWebUrl);
+                DataManager.getInstance().addWebData(mWebUrl);
                 Toast.makeText(DaemonApplication.getContext(), "已收藏" + mWebUrl, Toast.LENGTH_SHORT).show();
             }
         });

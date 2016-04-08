@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import com.shineson.jason.gravitysection.DaemonApplication;
 import com.shineson.jason.gravitysection.R;
-import com.shineson.jason.gravitysection.view.floatwinview.FloatWinManager;
+import com.shineson.jason.gravitysection.datatool.DataManager;
 import com.shineson.jason.gravitysection.view.maincollectionview.BaseFragment;
 
 import java.util.ArrayList;
@@ -44,29 +44,33 @@ public class WebBrowserFragment extends BaseFragment {
             return;
         }
         mWebBrowserViewList = new WebBrowserViewList(mLvCard, DaemonApplication.getContext());
-        ArrayList<HashMap<String, Object>> itemsLists = getFileListOnDownloadDir("/storage/");
+        ArrayList<HashMap<String, Object>> itemsLists = getUrlListOnDownloadDir();
         mWebBrowserViewList.setItemList(itemsLists);
-
-        if (!FloatWinManager.getInstance().isFloatWinShowing()) {
-            FloatWinManager.getInstance()
-                    .createFloatWinView(DaemonApplication.getContext())
-                    .showFloatWinWebPageView("https://about.me/zhonghuajian");
-        }
     }
 
-    public ArrayList<HashMap<String, Object>> getFileListOnDownloadDir(String path) {
+    public ArrayList<HashMap<String, Object>> getUrlListOnDownloadDir() {
         ArrayList<HashMap<String, Object>> UrlList;
-        UrlList = GetUrlName(path);
+        UrlList = GetUrlName();
         return UrlList;
     }
 
-    public static ArrayList<HashMap<String, Object>> GetUrlName(String fileAbsolutePath) {
+    public static ArrayList<HashMap<String, Object>> GetUrlName() {
         ArrayList<HashMap<String, Object>> urlList = new ArrayList<HashMap<String, Object>>();
 
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
         hashMap.put("urlname", "关于我");
         hashMap.put("url", "https://about.me/zhonghuajian");
+        hashMap.put("check", false);
         urlList.add(hashMap);
+
+        int size = DataManager.getInstance().getWebSize();
+        for (int i = 0; i < size; ++i) {
+            HashMap<String, Object> hashMapWeb = new HashMap<String, Object>();
+            hashMapWeb.put("urlname", DataManager.getInstance().getWebData(i));
+            hashMapWeb.put("url", DataManager.getInstance().getWebData(i));
+            hashMapWeb.put("check", false);
+            urlList.add(hashMapWeb);
+        }
         return urlList;
     }
 }

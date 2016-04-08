@@ -2,12 +2,14 @@
     <string name="app_name">私人收藏</string>
     <string name="external_call_label">&#160;私人收藏</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">你好，这是一个私人收藏应用，可以收藏你浏览的网页。</string>
     <string name="action_settings">Settings</string>
+    <string name="mainactivity_start">Start</string>
 
     <string name="gravity_widget_text">私人收藏</string>
     <string name="title_activity_main_collection">MainCollectionActivity</string>
 
     <string name="title_webbrowser">网页收藏</string>
+    <string name="title_other">其它收藏</string>
     <string name="title_aboutme">关于我</string>
 </resources>

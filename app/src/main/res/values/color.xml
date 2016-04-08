@@ -14,4 +14,18 @@
     <color name="floatwin_bg_center">#0015f0ff</color>
     <color name="floatwin_bg_end">#0015a9ff</color>
     <color name="floatwin_bg_bg">#cecece</color>
+
+    <!-- 新版界面色值 -->
+    <color name="collection_windows_title_bg">#fffafafa</color>
+    <color name="collection_windows_big_button_bg">#0399fc</color>
+    <color name="collection_title_txt_bg">#424242</color>
+    <color name="collection_diliver_color">#EEEEEE</color>
+    <color name="btn_press_color">#19000000</color>
+    <drawable name="btn_press_color">#19000000</drawable>
+    <color name="collection_btn_blue_normal">#0399FC</color>
+    <color name="collection_btn_blue_press">#2a80e7</color>
+    <color name="collection_btn_blue_text">#0399fc</color>
+    <color name="collection_parent">#ffffff</color>
+    <color name="collection_transparent">#00000000</color>
+    <color name="collection_top_tab_bg">#0399FC</color>
 </resources>

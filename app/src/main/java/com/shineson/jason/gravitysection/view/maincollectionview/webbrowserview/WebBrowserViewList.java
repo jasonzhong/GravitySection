@@ -5,9 +5,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.shineson.jason.gravitysection.DaemonApplication;
 import com.shineson.jason.gravitysection.R;
 import com.shineson.jason.gravitysection.common.listviewutil.BaseCardsAdapter;
 import com.shineson.jason.gravitysection.common.listviewutil.BaseCardsView;
+import com.shineson.jason.gravitysection.view.floatwinview.FloatWinManager;
+
+import java.util.HashMap;
 
 public class WebBrowserViewList extends BaseCardsView {
 
@@ -54,7 +58,22 @@ public class WebBrowserViewList extends BaseCardsView {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            long nId = id;
+            HashMap<String, Object> hashMap = getItemByPos(position);
+            boolean check = (boolean)hashMap.get("check");
+            hashMap.remove("check");
+            hashMap.put("check", !check);
+
+            String url = (String)hashMap.get("url");
+            int start = url.indexOf("http");
+            if (start != 0) {
+                url = url.substring(start, url.length());
+            }
+
+            FloatWinManager.getInstance()
+                   .createFloatWinView(DaemonApplication.getContext())
+                   .showFloatWinWebPageView(url);
+
+            modifyItemByPos(position, hashMap);
         }
     }
 }

@@ -7,6 +7,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.shineson.jason.gravitysection.R;
+import com.shineson.jason.gravitysection.datatool.DataManager;
 import com.shineson.jason.gravitysection.view.floatwinview.BaseFloatWinPageView;
 
 import java.io.File;
@@ -31,29 +32,34 @@ public class FloatWinCollectPageView extends BaseFloatWinPageView {
 
         mCollectPageViewView = new CollectPageViewList(mLvCard, context);
 
-        ArrayList<HashMap<String, Object>> itemsLists = getFileListOnDownloadDir("/storage/");
+        ArrayList<HashMap<String, Object>> itemsLists = getUrlListOnDownloadDir();
         mCollectPageViewView.setItemList(itemsLists);
     }
 
-    public ArrayList<HashMap<String, Object>> getFileListOnDownloadDir(String path) {
-        ArrayList<HashMap<String, Object>> fileList;
-        fileList = GetFileName(path);
-        return fileList;
+    public ArrayList<HashMap<String, Object>> getUrlListOnDownloadDir() {
+        ArrayList<HashMap<String, Object>> UrlList;
+        UrlList = GetUrlName();
+        return UrlList;
     }
 
-    public static ArrayList<HashMap<String, Object>> GetFileName(String fileAbsolutePath) {
-        ArrayList<HashMap<String, Object>> fileList = new ArrayList<HashMap<String, Object>>();
-        File file = new File(fileAbsolutePath);
-        File[] subFile = file.listFiles();
+    public static ArrayList<HashMap<String, Object>> GetUrlName() {
+        ArrayList<HashMap<String, Object>> urlList = new ArrayList<HashMap<String, Object>>();
 
-        for (int iFileLength = 0; iFileLength < subFile.length; iFileLength++) {
-            HashMap<String, Object> hashMap = new HashMap<String, Object>();
-            hashMap.put("fullpath", subFile[iFileLength].getPath());
-            hashMap.put("filename", subFile[iFileLength].getName());
-            hashMap.put("imageview", null);
-            fileList.add(hashMap);
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+        hashMap.put("urlname", "关于我");
+        hashMap.put("url", "https://about.me/zhonghuajian");
+        hashMap.put("check", false);
+        urlList.add(hashMap);
+
+        int size = DataManager.getInstance().getWebSize();
+        for (int i = 0; i < size; ++i) {
+            HashMap<String, Object> hashMapWeb = new HashMap<String, Object>();
+            hashMapWeb.put("urlname", DataManager.getInstance().getWebData(i));
+            hashMapWeb.put("url", DataManager.getInstance().getWebData(i));
+            hashMapWeb.put("check", false);
+            urlList.add(hashMapWeb);
         }
-        return fileList;
+        return urlList;
     }
 
     @Override
