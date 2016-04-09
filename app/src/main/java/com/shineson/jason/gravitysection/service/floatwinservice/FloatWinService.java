@@ -44,8 +44,12 @@ public class FloatWinService extends Service {
             public void run() {
                 String url = mUrl;
                 int start = url.indexOf("http");
+                int end = url.indexOf(" ", start);
+                if (end <= 0) {
+                    end = url.length();
+                }
                 if (start != 0) {
-                    url = url.substring(start, url.length());
+                    url = url.substring(start, end);
                 }
 
                 FloatWinManager.getInstance()

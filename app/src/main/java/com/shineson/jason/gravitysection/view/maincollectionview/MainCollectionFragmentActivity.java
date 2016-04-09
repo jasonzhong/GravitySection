@@ -31,7 +31,8 @@ public class MainCollectionFragmentActivity extends BasicFragmentActivity implem
     @Nullable @Bind(R.id.tv_webbrowser) TextView mBtnWebbrowser;
     @Nullable @Bind(R.id.tv_other) TextView mBtnOther;
     @Nullable @Bind(R.id.tv_aboutme) TextView mBtnAboutme;
-    @Nullable @Bind(R.id.main_Pager) ViewPager mMainPager;
+    @Nullable @Bind(R.id.main_Pager) ViewPager mTxtMainPager;
+    @Nullable @Bind(R.id.tv_title) TextView mTxtMainTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +65,11 @@ public class MainCollectionFragmentActivity extends BasicFragmentActivity implem
     }
 
     private void addMainPageChangeListener() {
-        if (null == mMainPager) {
+        if (null == mTxtMainPager) {
             return;
         }
 
-        mMainPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mTxtMainPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 setFragmentTab(position);
@@ -85,11 +86,11 @@ public class MainCollectionFragmentActivity extends BasicFragmentActivity implem
     }
 
     private void setMainPageAdapter() {
-        if (null == mMainPager) {
+        if (null == mTxtMainPager) {
             return;
         }
 
-        mMainPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        mTxtMainPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public int getCount() {
                 return mMenuList.size();
@@ -108,13 +109,15 @@ public class MainCollectionFragmentActivity extends BasicFragmentActivity implem
     }
 
     private void setFragmentTab(int position) {
-        if (mMainPager == null) {
+        if (mTxtMainPager == null) {
             return;
         }
-        mMainPager.setCurrentItem(position, true);
+        mTxtMainPager.setCurrentItem(position, true);
 
-
-        if (mBtnAboutme == null || mBtnWebbrowser == null || mBtnOther == null) {
+        if (mBtnAboutme == null ||
+            mBtnWebbrowser == null ||
+            mBtnOther == null ||
+            mTxtMainTitle == null) {
             return;
         }
         mBtnWebbrowser.setSelected(false);
@@ -122,10 +125,13 @@ public class MainCollectionFragmentActivity extends BasicFragmentActivity implem
         mBtnOther.setSelected(false);
 
         if (position == 0) {
+            mTxtMainTitle.setText(getResources().getText(R.string.title_webbrowser));
             mBtnWebbrowser.setSelected(true);
         } else if (position == 1) {
+            mTxtMainTitle.setText(getResources().getText(R.string.title_other));
             mBtnOther.setSelected(true);
         } else if (position == 2) {
+            mTxtMainTitle.setText(getResources().getText(R.string.title_aboutme));
             mBtnAboutme.setSelected(true);
         }
     }

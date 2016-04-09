@@ -65,8 +65,12 @@ public class WebBrowserViewList extends BaseCardsView {
 
             String url = (String)hashMap.get("url");
             int start = url.indexOf("http");
+            int end = url.indexOf(" ", start);
+            if (end <= 0) {
+                end = url.length();
+            }
             if (start != 0) {
-                url = url.substring(start, url.length());
+                url = url.substring(start, end);
             }
 
             FloatWinManager.getInstance()
