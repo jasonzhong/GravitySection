@@ -4,13 +4,10 @@ import android.content.Context;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.shineson.jason.gravitysection.DaemonApplication;
-
-import butterknife.ButterKnife;
 
 public abstract class BaseFloatWinPageView extends LinearLayout implements IFloatWinManager {
 
