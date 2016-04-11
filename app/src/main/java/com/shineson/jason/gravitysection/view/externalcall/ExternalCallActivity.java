@@ -26,9 +26,22 @@ public class ExternalCallActivity extends Activity {
     }
 
     private void intentActionSend(Intent intent) {
-        ClipData clipData = intent.getClipData();
-        ClipData.Item item = clipData.getItemAt(0);
-        String url = (String) item.getText();
+        String url = "";
+
+        Uri imageUri = null;
+        ClipData clipData = null;
+        imageUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        clipData = intent.getClipData();
+
+        if (imageUri != null) {
+            //url = imageUri.toString();
+            return;
+        } else if (clipData != null) {
+            ClipData.Item item = clipData.getItemAt(0);
+            url = (String) item.getText();
+        } else {
+            return;
+        }
 
         Intent intentService = new Intent(ExternalCallActivity.this, FloatWinService.class);
         intentService.putExtra("url", url);
@@ -37,7 +50,7 @@ public class ExternalCallActivity extends Activity {
 
     private void intentActionView(Intent intent) {
         Uri uri = intent.getData();
-        if(uri == null) {
+        if (uri == null) {
             return;
         }
         Intent intentService = new Intent(ExternalCallActivity.this, FloatWinService.class);
